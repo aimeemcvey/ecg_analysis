@@ -23,14 +23,18 @@ def organize_data(filereader):
         # file w name of test file and voltages exceeding
         # only once per file: bad_val()
         voltage.append(float(line[1]))
-    print(time)
-    print(voltage)
+    # print(time)
+    # print(voltage)
     return time, voltage
 
 
 def analyze_trace(time, voltage):
+    plot(time, voltage)
+
+
+def plot(time, voltage):
     import matplotlib.pyplot as plt
-    plt.plot(t, v)
+    plt.plot(time, voltage)
     plt.show()
 
 
