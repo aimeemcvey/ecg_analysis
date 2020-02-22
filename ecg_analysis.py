@@ -34,7 +34,7 @@ def organize_data(filereader, file):
         if vval > 0.3 or vval < -0.3:
             high_voltages.append(vval)
         voltage.append(vval)
-    logging.warning("file = {}: high voltages = {}".format(file, high_voltages))
+    logging.warning("file={}: high voltages={}".format(file, high_voltages))
     return time, voltage
 
 
