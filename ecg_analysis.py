@@ -39,14 +39,21 @@ def organize_data(filereader, file):
 
 
 def analyze_trace(time, voltage):
+    trace = {}
     plot(time, voltage)
-    timespan = time[-1] - time[0]
+    timespan = duration(time)
+    trace["Duration"] = timespan
 
 
 def plot(time, voltage):
     import matplotlib.pyplot as plt
     plt.plot(time, voltage)
     plt.show()
+
+
+def duration(time):
+    timespan = time[-1] - time[0]
+    return timespan
 
 
 if __name__ == "__main__":
