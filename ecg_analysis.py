@@ -39,10 +39,14 @@ def organize_data(filereader, file):
 
 
 def analyze_trace(time, voltage):
-    trace = {}
+    metrics = {}
+    # trace[x] later
     plot(time, voltage)
     timespan = duration(time)
-    trace["Duration"] = timespan
+    extremes = voltage_extremes(voltage)
+    metrics["duration"] = timespan
+    metrics["voltage_extremes"] = extremes
+    print(metrics)
 
 
 def plot(time, voltage):
@@ -54,6 +58,12 @@ def plot(time, voltage):
 def duration(time):
     timespan = time[-1] - time[0]
     return timespan
+
+
+def voltage_extremes(voltage):
+    minv = min(voltage)
+    maxv = max(voltage)
+    return minv, maxv
 
 
 if __name__ == "__main__":
