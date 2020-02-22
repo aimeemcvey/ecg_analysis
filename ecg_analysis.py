@@ -3,49 +3,51 @@
 
 def load_data():
     import csv
-    f = "test_data/test_data30.csv"
+    f = "test_data/test_data23.csv"
     with open(f, newline='') as csvfile:
         ecgreader = csv.reader(csvfile, delimiter=' ')
-        time, voltage = organize_data(ecgreader)
+        time, voltage = organize_data(ecgreader, f)
     return time, voltage
 
 
-def organize_data(filereader):
+def organize_data(filereader, file):
     import logging
-    logging.basicConfig(filename="ecg_analysis.log", filemode="w",
+    logging.basicConfig(filename="ecg_errors.log", filemode="w",
                         level=logging.INFO)
     time = list()
     voltage = list()
+    high_voltages = list()
     for row in filereader:
         for r in row:
             line = r.split(',')
-        # if either value missing, has non-numeric string, or is Nan
-        # log error to log file, skip to next pair: missing_val()
-        # w try/except
+        # val missing, non-numeric string, or NAN
+        # log error, skip to next pair w try/except
         try:
-            time.append(float(line[0]))
+            tval = float(line[0])
         except ValueError:
-            logging.error("Non-numeric string")
+            logging.error("Value bad/missing")
             continue
+        time.append(tval)
         # if voltage reading outside +/- 300 mV, add warning to log
-        # file w name of test file and voltages exceeding
-        # only once per file: bad_val()
-        voltage.append(float(line[1]))
-    # print(time)
-    # print(voltage)
+        # file w name of test file and voltages exceeding, once per file
+        vval = float(line[1])
+        if vval > 0.3 or vval < -0.3:
+            high_voltages.append(vval)
+        voltage.append(vval)
+    logging.warning("file = {}: high voltages = {}".format(file, high_voltages))
     return time, voltage
 
 
-def analyze_trace(time, voltage):
-    plot(time, voltage)
-
-
-def plot(time, voltage):
-    import matplotlib.pyplot as plt
-    plt.plot(time, voltage)
-    plt.show()
+# def analyze_trace(time, voltage):
+#     plot(time, voltage)
+#
+#
+# def plot(time, voltage):
+#     import matplotlib.pyplot as plt
+#     plt.plot(time, voltage)
+#     plt.show()
 
 
 if __name__ == "__main__":
     t, v = load_data()
-    analyze_trace(t, v)
+    # analyze_trace(t, v)
