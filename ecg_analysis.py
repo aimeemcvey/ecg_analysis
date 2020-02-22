@@ -38,16 +38,17 @@ def organize_data(filereader, file):
     return time, voltage
 
 
-# def analyze_trace(time, voltage):
-#     plot(time, voltage)
-#
-#
-# def plot(time, voltage):
-#     import matplotlib.pyplot as plt
-#     plt.plot(time, voltage)
-#     plt.show()
+def analyze_trace(time, voltage):
+    plot(time, voltage)
+    timespan = time[-1] - time[0]
+
+
+def plot(time, voltage):
+    import matplotlib.pyplot as plt
+    plt.plot(time, voltage)
+    plt.show()
 
 
 if __name__ == "__main__":
     t, v = load_data()
-    # analyze_trace(t, v)
+    analyze_trace(t, v)
