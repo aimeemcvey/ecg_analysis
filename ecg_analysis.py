@@ -50,6 +50,9 @@ def analyze_trace(time, voltage):
     plot(time, voltage)
     timespan = duration(time)
     extremes = voltage_extremes(voltage)
+    # beats = num_beats(voltage)
+    # mean_hr = mean_hr_bpm(time, voltage):
+    # beat_times = def beats(time)
     metrics["duration"] = timespan
     metrics["voltage_extremes"] = extremes
     print(metrics)
@@ -70,6 +73,12 @@ def voltage_extremes(voltage):
     minv = min(voltage)
     maxv = max(voltage)
     return minv, maxv
+
+
+# def num_beats(voltage):
+# def mean_hr_bpm(time, voltage):
+# def beats(time)
+
 
 
 if __name__ == "__main__":
