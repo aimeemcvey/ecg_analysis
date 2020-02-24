@@ -26,14 +26,18 @@ def organize_data(filereader, file):
         try:
             tval = float(line[0])
         except ValueError:
-            logging.error("Value bad/missing")
+            logging.error("Time value bad/missing")
             continue
-        if math.isnan(tval):
+        try:
+            vval = float(line[1])
+        except ValueError:
+            logging.error("Voltage value bad/missing")
+            continue
+        if math.isnan(tval) or math.isnan(vval):
             logging.error("Value NaN")
         time.append(tval)
         # if voltage reading outside +/- 300 mV, add warning to log
         # file w name of test file and voltages exceeding, once per file
-        vval = float(line[1])
         if vval > 300 or vval < -300:
             high_voltages.append(vval)
         voltage.append(vval)

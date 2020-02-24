@@ -1,2 +1,3 @@
 ERROR:root:Value NaN
+ERROR:root:Value NaN
 WARNING:root:file=test_data/test_data28.csv: high voltages=[]
