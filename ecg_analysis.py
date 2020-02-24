@@ -40,7 +40,8 @@ def organize_data(filereader, file):
             high_voltages.append(vval)
         voltage.append(vval)
     if len(high_voltages) > 0:
-        logging.warning("file={}: high voltages={}".format(file, high_voltages))
+        logging.warning("file={}: high voltages={}"
+                        .format(file, high_voltages))
     return time, voltage
 
 
@@ -92,7 +93,6 @@ def save_json(hr_dict, file):
     json.dump(hr_dict, out_file)
     out_file.close
     return out_file
-
 
 
 if __name__ == "__main__":
