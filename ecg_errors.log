@@ -1,3 +1,4 @@
-ERROR:root:Value NaN
-ERROR:root:Value NaN
-WARNING:root:file=test_data/test_data28.csv: high voltages=[]
+ERROR:root:Time value bad/missing
+ERROR:root:Time value bad/missing
+ERROR:root:Time value bad/missing
+ERROR:root:Time value bad/missing

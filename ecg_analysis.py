@@ -3,7 +3,7 @@
 
 def load_data():
     import csv
-    f = "test_data/test_data28.csv"
+    f = "test_data/test_data31.csv"
     with open(f, newline='') as csvfile:
         ecgreader = csv.reader(csvfile, delimiter=' ')
         time, voltage = organize_data(ecgreader, f)
@@ -22,7 +22,6 @@ def organize_data(filereader, file):
         for r in row:
             line = r.split(',')
         # val missing, non-numeric string, or NAN
-        # log error, skip to next pair w try/except
         try:
             tval = float(line[0])
         except ValueError:
@@ -37,11 +36,11 @@ def organize_data(filereader, file):
             logging.error("Value NaN")
         time.append(tval)
         # if voltage reading outside +/- 300 mV, add warning to log
-        # file w name of test file and voltages exceeding, once per file
         if vval > 300 or vval < -300:
             high_voltages.append(vval)
         voltage.append(vval)
-    logging.warning("file={}: high voltages={}".format(file, high_voltages))
+    if len(high_voltages) > 0:
+        logging.warning("file={}: high voltages={}".format(file, high_voltages))
     return time, voltage
 
 
