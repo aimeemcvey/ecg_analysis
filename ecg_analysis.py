@@ -7,7 +7,7 @@ def load_data():
     with open(f, newline='') as csvfile:
         ecgreader = csv.reader(csvfile, delimiter=' ')
         time, voltage = organize_data(ecgreader, f)
-    return time, voltage
+    return time, voltage, f
 
 
 def organize_data(filereader, file):
@@ -44,7 +44,7 @@ def organize_data(filereader, file):
     return time, voltage
 
 
-def analyze_trace(time, voltage):
+def analyze_trace(time, voltage, file):
     metrics = {}
     # trace[x] later
     plot(time, voltage)
@@ -55,6 +55,7 @@ def analyze_trace(time, voltage):
     # beat_times = def beats(time)
     metrics["duration"] = timespan
     metrics["voltage_extremes"] = extremes
+    out_file = save_json(metrics, file)
     print(metrics)
 
 
@@ -80,7 +81,20 @@ def voltage_extremes(voltage):
 # def beats(time)
 
 
+def save_json(hr_dict, file):
+    import json
+    filepath_split = file.split('/')
+    filename_csv = filepath_split[1]
+    filename_stem = filename_csv.split('.')
+    filename = filename_stem[0]
+    filename = "{}.json" .format(filename)
+    out_file = open(filename, 'w')
+    json.dump(hr_dict, out_file)
+    out_file.close
+    return out_file
+
+
 
 if __name__ == "__main__":
-    t, v = load_data()
-    analyze_trace(t, v)
+    t, v, f = load_data()
+    analyze_trace(t, v, f)
