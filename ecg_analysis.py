@@ -3,7 +3,7 @@
 
 def load_data():
     import csv
-    f = "test_data/test_data32.csv"
+    f = "test_data/test_data28.csv"
     with open(f, newline='') as csvfile:
         ecgreader = csv.reader(csvfile, delimiter=' ')
         time, voltage = organize_data(ecgreader, f)
@@ -11,6 +11,7 @@ def load_data():
 
 
 def organize_data(filereader, file):
+    import math
     import logging
     logging.basicConfig(filename="ecg_errors.log", filemode="w",
                         level=logging.INFO)
@@ -27,6 +28,8 @@ def organize_data(filereader, file):
         except ValueError:
             logging.error("Value bad/missing")
             continue
+        if math.isnan(tval):
+            logging.error("Value NaN")
         time.append(tval)
         # if voltage reading outside +/- 300 mV, add warning to log
         # file w name of test file and voltages exceeding, once per file
