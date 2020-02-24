@@ -3,7 +3,7 @@
 
 def load_data():
     import csv
-    f = "test_data/test_data23.csv"
+    f = "test_data/test_data32.csv"
     with open(f, newline='') as csvfile:
         ecgreader = csv.reader(csvfile, delimiter=' ')
         time, voltage = organize_data(ecgreader, f)
@@ -31,7 +31,7 @@ def organize_data(filereader, file):
         # if voltage reading outside +/- 300 mV, add warning to log
         # file w name of test file and voltages exceeding, once per file
         vval = float(line[1])
-        if vval > 0.3 or vval < -0.3:
+        if vval > 300 or vval < -300:
             high_voltages.append(vval)
         voltage.append(vval)
     logging.warning("file={}: high voltages={}".format(file, high_voltages))
