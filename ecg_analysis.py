@@ -1,4 +1,5 @@
 # ecg_analysis.py
+import logging
 
 
 def load_data(f):
@@ -38,7 +39,6 @@ def organize_data(filereader, file):
         list: voltage data of the ECG strip
     """
     import math
-    import logging
     logging.basicConfig(filename="ecg_errors.log", filemode="w",
                         level=logging.INFO)
     time = list()
@@ -179,6 +179,7 @@ def create_dict(timespan, extremes):
     metrics = {}
     metrics["duration"] = timespan
     metrics["voltage_extremes"] = extremes
+    print(metrics)
     return metrics
 
 
