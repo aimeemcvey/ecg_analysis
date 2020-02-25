@@ -89,6 +89,7 @@ def analyze_trace(time, voltage, file):
     Returns:
         JSON: ECG statistics for the individual file
     """
+    logging.info("Starting analysis of new ECG trace")
     plot(time, voltage)
     timespan = duration(time)
     extremes = voltage_extremes(voltage)
@@ -115,6 +116,7 @@ def plot(time, voltage):
         pyplot: voltage-time plot of ECG strip
     """
     import matplotlib.pyplot as plt
+    logging.info("Plotting ECG trace")
     plt.plot(time, voltage)
     plt.show()
 
@@ -132,6 +134,7 @@ def duration(time):
     Returns:
         float: time duration of ECG strip
     """
+    logging.info("Calculating time span of ECG trace")
     timespan = time[-1] - time[0]
     return timespan
 
@@ -150,14 +153,18 @@ def voltage_extremes(voltage):
     Returns:
         float tuple: (min, max) of lead voltages in file
     """
+    logging.info("Identifying voltage extremes of ECG trace")
     minv = min(voltage)
     maxv = max(voltage)
     return minv, maxv
 
 
 # def num_beats(voltage):
+    # logging.info("Calculating number of beats in ECG trace")
 # def mean_hr_bpm(time, voltage):
+    # logging.info("Calculating mean HR of ECG trace")
 # def beats(time)
+    # logging.info("Identifying time of beats in ECG trace")
 
 def create_dict(timespan, extremes):
     """Creates metrics dictionary with key ECG information
