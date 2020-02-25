@@ -39,7 +39,7 @@ def organize_data(filereader, file):
         list: voltage data of the ECG strip
     """
     import math
-    logging.basicConfig(filename="ecg_errors.log", filemode="w",
+    logging.basicConfig(filename="ecg_info.log", filemode="w",
                         level=logging.INFO)
     time = list()
     voltage = list()
