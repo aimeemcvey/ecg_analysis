@@ -3,7 +3,6 @@
 
 def load_data(f):
     import csv
-    # f = "test_data/test_data31.csv"
     with open(f, newline='') as csvfile:
         ecgreader = csv.reader(csvfile, delimiter=' ')
         time, voltage = organize_data(ecgreader, f)
@@ -46,7 +45,6 @@ def organize_data(filereader, file):
 
 
 def analyze_trace(time, voltage, file):
-    # trace[x] later
     plot(time, voltage)
     timespan = duration(time)
     extremes = voltage_extremes(voltage)
@@ -55,7 +53,7 @@ def analyze_trace(time, voltage, file):
     # beat_times = def beats(time)
     metrics = create_dict(timespan, extremes)  # add others later
     out_file = save_json(metrics, file)
-    print(metrics)
+    return out_file
 
 
 def plot(time, voltage):
@@ -87,6 +85,20 @@ def create_dict(timespan, extremes):
 
 
 def save_json(hr_dict, file):
+    """Saves set of ECG data's key stats in JSON format
+
+    ECG data is saved under 'test_data#.json' format
+    with the following info: timespan (float),
+    voltage_extremes (float tuple), num_beats (int),
+    mean_hr_bpm (float), beats (list of ints)
+
+    Args:
+        hr_dict (dict): Patient information separated into keys-value pairs
+        file (str): Filename and path with stem to be used as JSON filename
+
+    Returns:
+        JSON: ECG statistics for the individual patient
+    """
     import json
     filepath_split = file.split('/')
     filename_csv = filepath_split[1]
