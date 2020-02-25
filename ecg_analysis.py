@@ -1,13 +1,13 @@
 # ecg_analysis.py
 
 
-def load_data():
+def load_data(f):
     import csv
-    f = "test_data/test_data31.csv"
+    # f = "test_data/test_data31.csv"
     with open(f, newline='') as csvfile:
         ecgreader = csv.reader(csvfile, delimiter=' ')
         time, voltage = organize_data(ecgreader, f)
-    return time, voltage, f
+    return time, voltage
 
 
 def organize_data(filereader, file):
@@ -46,7 +46,6 @@ def organize_data(filereader, file):
 
 
 def analyze_trace(time, voltage, file):
-    metrics = {}
     # trace[x] later
     plot(time, voltage)
     timespan = duration(time)
@@ -54,8 +53,7 @@ def analyze_trace(time, voltage, file):
     # beats = num_beats(voltage)
     # mean_hr = mean_hr_bpm(time, voltage):
     # beat_times = def beats(time)
-    metrics["duration"] = timespan
-    metrics["voltage_extremes"] = extremes
+    metrics = create_dict(timespan, extremes)  # add others later
     out_file = save_json(metrics, file)
     print(metrics)
 
@@ -81,6 +79,12 @@ def voltage_extremes(voltage):
 # def mean_hr_bpm(time, voltage):
 # def beats(time)
 
+def create_dict(timespan, extremes):
+    metrics = {}
+    metrics["duration"] = timespan
+    metrics["voltage_extremes"] = extremes
+    return metrics
+
 
 def save_json(hr_dict, file):
     import json
@@ -96,5 +100,6 @@ def save_json(hr_dict, file):
 
 
 if __name__ == "__main__":
-    t, v, f = load_data()
-    analyze_trace(t, v, f)
+    file = "test_data/test_data31.csv"
+    t, v = load_data(file)
+    analyze_trace(t, v, file)
