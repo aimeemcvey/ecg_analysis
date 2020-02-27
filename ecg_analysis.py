@@ -54,11 +54,6 @@ def organize_data(filereader, file):
         except ValueError:
             logging.error("Value bad/missing")
             continue
-        # try:
-        #     vval = float(line[1])
-        # except ValueError:
-        #     logging.error("Voltage value bad/missing")
-        #     continue
         if math.isnan(tval) or math.isnan(vval):
             logging.error("Value NaN")
         else:
@@ -70,7 +65,6 @@ def organize_data(filereader, file):
     if len(high_voltages) > 0:
         logging.warning("file={}: high voltages={}"
                         .format(file, high_voltages))
-    print(time, voltage)
     return time, voltage, high_voltages
 
 
@@ -222,6 +216,6 @@ def save_json(hr_dict, file):
 
 
 if __name__ == "__main__":
-    file = "test_data/test_data_load_test.csv"
+    file = "test_data/test_data1.csv"
     t, v, hv = load_data(file)
     analyze_trace(t, v, file)
