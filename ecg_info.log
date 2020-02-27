@@ -1,8 +1,3 @@
 ERROR:root:Time value bad/missing
-ERROR:root:Time value bad/missing
-ERROR:root:Time value bad/missing
-ERROR:root:Time value bad/missing
-INFO:root:Starting analysis of new ECG trace
-INFO:root:Plotting ECG trace
-INFO:root:Calculating time span of ECG trace
-INFO:root:Identifying voltage extremes of ECG trace
+ERROR:root:Value NaN
+WARNING:root:file=test_data/test_data_load_test.csv: high voltages=[-301.0]

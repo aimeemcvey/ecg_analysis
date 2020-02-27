@@ -1,5 +1,30 @@
 # test_ecg_analysis.py
 import pytest
+import math
+
+# def test_func1_single(self):
+#     instance_under_test = A()
+#     d1, d2 = instance_under_test.func1(42, 81)
+#     self.assertEqual(d1, {'a': 42})
+#     self.assertEqual(d2, {'b': 81})
+
+
+def test_load_data():
+    from ecg_analysis import load_data
+    file = "test_data/test_data_load_test.csv"
+    ans1, ans2, ans3 = load_data(file)
+    time = ([0.0, 0.003, 0.006, 0.008, 0.011, 0.014, 0.017, 0.019, 0.022,
+            0.025, 0.028, 0.033, 0.036, 0.039, 0.042, 0.044, 0.047, 0.05,
+            0.053])
+    voltage = ([-0.145, -0.145, -0.145, -0.145, -0.145, -0.145, -0.145,
+               -0.145, -0.12, -301.0, -0.145, -0.16, -0.155, math.nan, -0.175,
+               -0.18, -0.185, -0.17, -0.155])
+    high_voltages = ([-301.0])
+    expected = time, voltage, high_voltages
+    print(expected)
+    answer = ans1, ans2, ans3
+    print(answer)
+    assert answer == expected
 
 
 def test_analyze_trace():
@@ -41,5 +66,4 @@ def test_create_dict():
     answer = create_dict(timespan, extremes)
     expected = {"duration": 4.5, "voltage_extremes": (-3.5, 1.3)}
     assert answer == expected
-
 
