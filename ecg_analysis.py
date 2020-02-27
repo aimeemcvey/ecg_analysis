@@ -50,24 +50,27 @@ def organize_data(filereader, file):
         # val missing, non-numeric string, or NAN
         try:
             tval = float(line[0])
-        except ValueError:
-            logging.error("Time value bad/missing")
-            continue
-        try:
             vval = float(line[1])
         except ValueError:
-            logging.error("Voltage value bad/missing")
+            logging.error("Value bad/missing")
             continue
+        # try:
+        #     vval = float(line[1])
+        # except ValueError:
+        #     logging.error("Voltage value bad/missing")
+        #     continue
         if math.isnan(tval) or math.isnan(vval):
             logging.error("Value NaN")
-        time.append(tval)
+        else:
+            time.append(tval)
+            voltage.append(vval)
         # if voltage reading outside +/- 300 mV, add warning to log
         if vval > 300 or vval < -300:
             high_voltages.append(vval)
-        voltage.append(vval)
     if len(high_voltages) > 0:
         logging.warning("file={}: high voltages={}"
                         .format(file, high_voltages))
+    print(time, voltage)
     return time, voltage, high_voltages
 
 
