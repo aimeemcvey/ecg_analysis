@@ -2,6 +2,16 @@
 import pytest
 
 
+def test_analyze_trace():
+    from ecg_analysis import analyze_trace
+    time = ([0.1, 0.3, 0.5, 0.9, 1.5, 1.7, 1.9, 2.3, 2.6, 3.1, 3.6, 3.8, 4.0, 4.3])
+    voltage = ([-0.3, -0.9, -1.4, -1.7, -1.4, 0.1, 0.5, 0.7, 0.1, 1.3, 0.6, 1.8, 3.5, 2.0])
+    file = "test_data/test_data_madeup.csv"
+    answer = analyze_trace(time, voltage, file)
+    expected = {"duration": 4.2, "voltage_extremes": (-1.7, 3.5)}
+    assert answer == expected
+
+
 @pytest.mark.parametrize("t, expected", [
     ([0.3, 0.8, 1.1, 1.5, 1.8, 2.2, 3.4], 3.1),
     ([0, 0.2, 0.7, 5.6, 9.3, 11.6], 11.6),
