@@ -3,21 +3,50 @@ import pytest
 import math
 
 
-def test_load_data():
-    # missing tval, vval, nan, -301
+def test_load_data_missing_vals():
     from ecg_analysis import load_data
-    file = "test_data/test_data_load_test.csv"
+    file = "test_data/test_data_load_test_missing_vals.csv"
     ans1, ans2, ans3 = load_data(file)
     time = ([0.0, 0.003, 0.006, 0.008, 0.011, 0.014, 0.017, 0.019, 0.022,
-            0.025, 0.028, 0.033, 0.036, 0.042, 0.044, 0.047, 0.05])
+            0.025, 0.028, 0.033, 0.036, 0.039, 0.042, 0.044, 0.047, 0.05])
     voltage = ([-0.145, -0.145, -0.145, -0.145, -0.145, -0.145, -0.145,
-               -0.145, -0.12, -301.0, -0.145, -0.16, -0.155, -0.175,
+               -0.145, -0.12, -0.13, -0.145, -0.16, -0.155, -0.16, -0.175,
                -0.18, -0.185, -0.17])
+    high_voltages = ([])
+    expected = time, voltage, high_voltages
+    answer = ans1, ans2, ans3
+    assert answer == expected
+
+
+def test_load_data_nan():
+    from ecg_analysis import load_data
+    file = "test_data/test_data_load_test_nan.csv"
+    ans1, ans2, ans3 = load_data(file)
+    time = ([0.0, 0.003, 0.006, 0.008, 0.014, 0.017, 0.019, 0.022,
+            0.025, 0.028, 0.030, 0.033, 0.036, 0.039, 0.042, 0.044,
+             0.05, 0.053])
+    voltage = ([-0.145, -0.145, -0.145, -0.145, -0.145, -0.145,
+               -0.145, -0.12, -0.13, -0.145, -0.15, -0.16, -0.155,
+                -0.16, -0.175, -0.18, -0.17, -0.18])
+    high_voltages = ([])
+    expected = time, voltage, high_voltages
+    answer = ans1, ans2, ans3
+    assert answer == expected
+
+
+def test_load_data_excess_voltage():
+    from ecg_analysis import load_data
+    file = "test_data/test_data_load_test_excess_voltage.csv"
+    ans1, ans2, ans3 = load_data(file)
+    time = ([0.0, 0.003, 0.006, 0.008, 0.010, 0.014, 302.0, 0.019, 0.022,
+            0.025, 0.028, 0.030, 0.033, 0.036, 0.039, 0.042, 0.044, 0.047,
+             0.05, 0.053])
+    voltage = ([-0.145, -0.145, -0.145, -0.145, -0.145, -0.145, -0.145,
+               -0.145, -0.12, -0.13, -0.145, -0.15, -0.16, -0.155, -0.16,
+                -0.175, -0.18, -301.0, -0.17, -0.18])
     high_voltages = ([-301.0])
     expected = time, voltage, high_voltages
-    print(expected)
     answer = ans1, ans2, ans3
-    print(answer)
     assert answer == expected
 
 
