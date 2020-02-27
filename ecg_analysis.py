@@ -18,8 +18,8 @@ def load_data(f):
     import csv
     with open(f, newline='') as csvfile:
         ecgreader = csv.reader(csvfile, delimiter=' ')
-        time, voltage = organize_data(ecgreader, f)
-    return time, voltage
+        time, voltage, high_voltages = organize_data(ecgreader, f)
+    return time, voltage, high_voltages
 
 
 def organize_data(filereader, file):
@@ -50,25 +50,22 @@ def organize_data(filereader, file):
         # val missing, non-numeric string, or NAN
         try:
             tval = float(line[0])
-        except ValueError:
-            logging.error("Time value bad/missing")
-            continue
-        try:
             vval = float(line[1])
         except ValueError:
-            logging.error("Voltage value bad/missing")
+            logging.error("Value bad/missing")
             continue
         if math.isnan(tval) or math.isnan(vval):
             logging.error("Value NaN")
-        time.append(tval)
+        else:
+            time.append(tval)
+            voltage.append(vval)
         # if voltage reading outside +/- 300 mV, add warning to log
         if vval > 300 or vval < -300:
             high_voltages.append(vval)
-        voltage.append(vval)
     if len(high_voltages) > 0:
         logging.warning("file={}: high voltages={}"
                         .format(file, high_voltages))
-    return time, voltage
+    return time, voltage, high_voltages
 
 
 def analyze_trace(time, voltage, file):
@@ -98,6 +95,7 @@ def analyze_trace(time, voltage, file):
     # beat_times = def beats(time)
     metrics = create_dict(timespan, extremes)  # add others later
     out_file = save_json(metrics, file)
+    return metrics
     return out_file
 
 
@@ -218,6 +216,6 @@ def save_json(hr_dict, file):
 
 
 if __name__ == "__main__":
-    file = "test_data/test_data31.csv"
-    t, v = load_data(file)
+    file = "test_data/test_data1.csv"
+    t, v, hv = load_data(file)
     analyze_trace(t, v, file)
