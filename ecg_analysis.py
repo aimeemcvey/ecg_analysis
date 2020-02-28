@@ -93,7 +93,7 @@ def analyze_trace(time, voltage, file):
     beats = num_beats(voltage, extremes[1])
     mean_hr = mean_hr_bpm(beats, timespan)
     # beat_times = def beats(time)
-    metrics = create_dict(timespan, extremes, beats)  # add others later
+    metrics = create_dict(timespan, extremes, beats, mean_hr)  # add others later
     out_file = save_json(metrics, file)
     return metrics
     return out_file
@@ -195,7 +195,7 @@ def mean_hr_bpm(beats, t_in_s):
     # logging.info("Identifying time of beats in ECG trace")
 
 
-def create_dict(timespan, extremes, beats):
+def create_dict(timespan, extremes, beats, mean_hr):
     """Creates metrics dictionary with key ECG information
 
     The metrics dictionary contains the the following info:
@@ -206,7 +206,7 @@ def create_dict(timespan, extremes, beats):
         timespan (float): time duration of ECG strip
         extremes (float tuple): (min, max) of lead voltages in file
         beats (int): number of detected beats in file
-        mean_hr (float): average heart rate over file length
+        mean_hr (int): average heart rate over file length
         beat_times (list of ints): times when beat occurred
 
     Returns:
@@ -216,6 +216,7 @@ def create_dict(timespan, extremes, beats):
     metrics["duration"] = timespan
     metrics["voltage_extremes"] = extremes
     metrics["num_beats"] = beats
+    metrics["mean_hr_bpm"] = mean_hr
     print(metrics)
     return metrics
 
@@ -226,7 +227,7 @@ def save_json(hr_dict, file):
     ECG data is saved under 'test_data#.json' format
     with the following info: timespan (float),
     voltage_extremes (float tuple), num_beats (int),
-    mean_hr_bpm (float), beats (list of ints)
+    mean_hr_bpm (int), beats (list of ints)
 
     Args:
         hr_dict (dict): patient information separated into keys-value pairs
