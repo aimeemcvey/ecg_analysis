@@ -91,7 +91,7 @@ def analyze_trace(time, voltage, file):
     timespan = duration(time)
     extremes = voltage_extremes(voltage)
     beats = num_beats(voltage, extremes[1])
-    # mean_hr = mean_hr_bpm(time, voltage):
+    mean_hr = mean_hr_bpm(beats, timespan)
     # beat_times = def beats(time)
     metrics = create_dict(timespan, extremes, beats)  # add others later
     out_file = save_json(metrics, file)
@@ -184,8 +184,13 @@ def num_beats(voltage, max):
     print(num_peaks)
     return num_peaks
 
-# def mean_hr_bpm(time, voltage):
-    # logging.info("Calculating mean HR of ECG trace")
+
+def mean_hr_bpm(beats, t_in_s):
+    logging.info("Calculating mean HR of ECG trace")
+    t_in_min = t_in_s/60
+    bpm = round(beats/t_in_min)
+    return bpm
+
 # def beats(time)
     # logging.info("Identifying time of beats in ECG trace")
 
@@ -243,6 +248,6 @@ def save_json(hr_dict, file):
 
 
 if __name__ == "__main__":
-    file = "test_data/test_data12.csv"
+    file = "test_data/test_data1.csv"
     t, v, hv = load_data(file)
     analyze_trace(t, v, file)
