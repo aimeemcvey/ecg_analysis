@@ -172,11 +172,14 @@ def num_beats(voltage, max):
         int: number of peaks/beats in the ECG strip
     """
     import scipy.signal
+    import statistics
     logging.info("Calculating number of beats in ECG trace")
+    # meanval = statistics.mean(voltage)
+    # print(meanval)
+    # threshold = (max+meanval)/2
     threshold = 0.5*max
     peaks = scipy.signal.find_peaks(voltage, threshold)
     peak_indices = peaks[0]
-    print(peak_indices)
     num_peaks = len(peak_indices)
     print(num_peaks)
     return num_peaks
@@ -240,6 +243,6 @@ def save_json(hr_dict, file):
 
 
 if __name__ == "__main__":
-    file = "test_data/test_data10.csv"
+    file = "test_data/test_data12.csv"
     t, v, hv = load_data(file)
     analyze_trace(t, v, file)
