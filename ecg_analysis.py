@@ -158,6 +158,19 @@ def voltage_extremes(voltage):
 
 
 def num_beats(voltage):
+    """Counts number of heartbeats in ECG strip data
+
+    The peaks of an ECG indicate a heart beat, with each
+    peak indicative of a QRS wave. By counting these beats,
+    the heart rate can be determined, which can further be
+    used to diagnose deeper conditions.
+
+    Args:
+        voltage (list): voltage data of the ECG strip
+
+    Returns:
+        int: number of peaks/beats in the ECG strip
+    """
     import scipy.signal
     logging.info("Calculating number of beats in ECG trace")
     peaks = scipy.signal.find_peaks(voltage, 0.5)
@@ -183,7 +196,7 @@ def create_dict(timespan, extremes, beats):
     Args:
         timespan (float): time duration of ECG strip
         extremes (float tuple): (min, max) of lead voltages in file
-        num_beats (int): number of detected beats in file
+        beats (int): number of detected beats in file
         mean_hr (float): average heart rate over file length
         beat_times (list of ints): times when beat occurred
 
