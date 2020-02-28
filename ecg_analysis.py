@@ -90,7 +90,7 @@ def analyze_trace(time, voltage, file):
     plot(time, voltage)
     timespan = duration(time)
     extremes = voltage_extremes(voltage)
-    # beats = num_beats(voltage)
+    beats = num_beats(voltage)
     # mean_hr = mean_hr_bpm(time, voltage):
     # beat_times = def beats(time)
     metrics = create_dict(timespan, extremes)  # add others later
@@ -157,8 +157,15 @@ def voltage_extremes(voltage):
     return minv, maxv
 
 
-# def num_beats(voltage):
-    # logging.info("Calculating number of beats in ECG trace")
+def num_beats(voltage):
+    import scipy.signal
+    logging.info("Calculating number of beats in ECG trace")
+    peaks = scipy.signal.find_peaks(voltage, 0.5)
+    peak_indices = peaks[0]
+    print(peak_indices)
+    num_peaks = len(peak_indices)
+    print(num_peaks)
+
 # def mean_hr_bpm(time, voltage):
     # logging.info("Calculating mean HR of ECG trace")
 # def beats(time)
