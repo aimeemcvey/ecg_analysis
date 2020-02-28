@@ -186,6 +186,20 @@ def num_beats(voltage, max):
 
 
 def mean_hr_bpm(beats, t_in_s):
+    """Calculates heart rate from previously determined beats and timespan
+
+    The peaks of an ECG indicate a heart beat, with each
+    peak indicative of a QRS wave. By counting these beats,
+    the heart rate can be determined, which can further be
+    used to diagnose deeper conditions.
+
+    Args:
+        beats (int): number of calculated heartbeats in ECG strip
+        t_in_s (float): calculated time duration of ECG strip
+
+    Returns:
+        int: heart rate in beats per minute
+    """
     logging.info("Calculating mean HR of ECG trace")
     t_in_min = t_in_s/60
     bpm = round(beats/t_in_min)
