@@ -90,7 +90,7 @@ def analyze_trace(time, voltage, file):
     plot(time, voltage)
     timespan = duration(time)
     extremes = voltage_extremes(voltage)
-    beats = num_beats(voltage)
+    beats = num_beats(voltage, extremes[1])
     # mean_hr = mean_hr_bpm(time, voltage):
     # beat_times = def beats(time)
     metrics = create_dict(timespan, extremes, beats)  # add others later
@@ -157,7 +157,7 @@ def voltage_extremes(voltage):
     return minv, maxv
 
 
-def num_beats(voltage):
+def num_beats(voltage, max):
     """Counts number of heartbeats in ECG strip data
 
     The peaks of an ECG indicate a heart beat, with each
@@ -173,7 +173,8 @@ def num_beats(voltage):
     """
     import scipy.signal
     logging.info("Calculating number of beats in ECG trace")
-    peaks = scipy.signal.find_peaks(voltage, 0.5)
+    threshold = 0.5*max
+    peaks = scipy.signal.find_peaks(voltage, threshold)
     peak_indices = peaks[0]
     print(peak_indices)
     num_peaks = len(peak_indices)
@@ -239,6 +240,6 @@ def save_json(hr_dict, file):
 
 
 if __name__ == "__main__":
-    file = "test_data/test_data1.csv"
+    file = "test_data/test_data10.csv"
     t, v, hv = load_data(file)
     analyze_trace(t, v, file)

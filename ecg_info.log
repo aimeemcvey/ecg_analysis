@@ -1,5 +1,0 @@
-INFO:root:Starting analysis of new ECG trace
-INFO:root:Plotting ECG trace
-INFO:root:Calculating time span of ECG trace
-INFO:root:Identifying voltage extremes of ECG trace
-INFO:root:Calculating number of beats in ECG trace
