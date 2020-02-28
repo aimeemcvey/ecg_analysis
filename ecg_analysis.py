@@ -188,10 +188,10 @@ def num_beats(voltage, max):
 def mean_hr_bpm(beats, t_in_s):
     """Calculates heart rate from previously determined beats and timespan
 
-    The peaks of an ECG indicate a heart beat, with each
-    peak indicative of a QRS wave. By counting these beats,
-    the heart rate can be determined, which can further be
-    used to diagnose deeper conditions.
+    Average heart rate is the number of times a person's heart beats
+    per minute. Normal heart rate is generally defined as 60 to 100
+    bpm. Higher or lower heart rates can indicate tachycardia or
+    bradycardia, respectively, as well as further health conditions.
 
     Args:
         beats (int): number of calculated heartbeats in ECG strip
