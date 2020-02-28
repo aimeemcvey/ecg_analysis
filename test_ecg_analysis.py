@@ -58,7 +58,8 @@ def test_analyze_trace():
                 1.3, 0.6, 1.8, 3.5, 2.0])
     file = "test_data/test_data_madeup.csv"
     answer = analyze_trace(time, voltage, file)
-    expected = {"duration": 4.2, "voltage_extremes": (-1.7, 3.5)}
+    expected = {"duration": 4.2, "voltage_extremes": (-1.7, 3.5),
+                "num_beats": 1}
     assert answer == expected
 
 
@@ -88,6 +89,20 @@ def test_create_dict():
     from ecg_analysis import create_dict
     timespan = 4.5
     extremes = (-3.5, 1.3)
-    answer = create_dict(timespan, extremes)
-    expected = {"duration": 4.5, "voltage_extremes": (-3.5, 1.3)}
+    beats = 31
+    answer = create_dict(timespan, extremes, beats)
+    expected = {"duration": 4.5, "voltage_extremes": (-3.5, 1.3),
+                "num_beats": 31}
+    assert answer == expected
+
+
+def test_num_beats():
+    from ecg_analysis import num_beats
+    from ecg_analysis import load_data
+    from ecg_analysis import voltage_extremes
+    file = "test_data/test_data1.csv"
+    t, v, hv = load_data(file)
+    minv, maxv = voltage_extremes(v)
+    answer = num_beats(v, maxv)
+    expected = 35
     assert answer == expected
