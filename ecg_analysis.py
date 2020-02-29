@@ -1,8 +1,8 @@
 # ecg_analysis.py
 import logging
 import matplotlib.pyplot as plt
-import numpy as np
-import scipy.signal
+import scipy.signal as signal
+from ecgdetectors import Detectors
 
 
 def load_data(f):
@@ -93,7 +93,7 @@ def analyze_trace(time, voltage, file):
     plot(time, voltage)
     timespan = duration(time)
     extremes = voltage_extremes(voltage)
-    beats = num_beats(voltage, extremes[1])
+    beats = num_beats(voltage, time)
     mean_hr = mean_hr_bpm(beats, timespan)
     # beat_times = def beats(time)
     metrics = create_dict(timespan, extremes, beats, mean_hr)
@@ -159,7 +159,7 @@ def voltage_extremes(voltage):
     return minv, maxv
 
 
-def num_beats(voltage, max):
+def num_beats(voltage, time):
     """Counts number of heartbeats in ECG strip data
 
     The peaks of an ECG indicate a heart beat, with each
@@ -174,10 +174,12 @@ def num_beats(voltage, max):
         int: number of peaks/beats in the ECG strip
     """
     logging.info("Calculating number of beats in ECG trace")
-    threshold = 0.5*max
-    peaks = scipy.signal.find_peaks(voltage, threshold)
-    peak_indices = peaks[0]
-    num_peaks = len(peak_indices)
+    fs = 1/(time[1]-time[0])
+    detectors = Detectors(fs)
+    unfiltered_ecg = voltage
+    r_peaks = detectors.pan_tompkins_detector(unfiltered_ecg)
+    num_peaks = len(r_peaks)
+    # time[r_peaks]
     print(num_peaks)
     return num_peaks
 
@@ -260,6 +262,6 @@ def save_json(hr_dict, file):
 
 
 if __name__ == "__main__":
-    file = "test_data/test_data1.csv"
+    file = "test_data/test_data10.csv"
     t, v, hv = load_data(file)
     analyze_trace(t, v, file)
