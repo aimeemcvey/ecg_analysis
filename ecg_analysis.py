@@ -96,10 +96,11 @@ def analyze_trace(time, voltage, file):
     nbeats, peaks = num_beats(voltage, time)
     mean_hr = mean_hr_bpm(nbeats, timespan)
     beat_times = beats(peaks, time)
-    metrics = create_dict(timespan, extremes, nbeats, mean_hr)
-    out_file = save_json(metrics, file)
+    metrics = create_dict(timespan, extremes, nbeats, mean_hr,
+                          beat_times)
+    save_json(metrics, file)
     return metrics
-    return out_file
+    # return out_file
 
 
 def plot(time, voltage):
@@ -214,7 +215,7 @@ def beats(peak_indices, time):
     return peak_times
 
 
-def create_dict(timespan, extremes, numbeats, mean_hr):
+def create_dict(timespan, extremes, numbeats, mean_hr, beat_times):
     """Creates metrics dictionary with key ECG information
 
     The metrics dictionary contains the the following info:
@@ -236,6 +237,7 @@ def create_dict(timespan, extremes, numbeats, mean_hr):
     metrics["voltage_extremes"] = extremes
     metrics["num_beats"] = numbeats
     metrics["mean_hr_bpm"] = mean_hr
+    metrics["beats"] = beat_times
     print(metrics)
     return metrics
 
