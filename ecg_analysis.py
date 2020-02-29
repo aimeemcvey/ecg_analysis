@@ -207,6 +207,20 @@ def mean_hr_bpm(numbeats, t_in_s):
 
 
 def beats(peak_indices, time):
+    """Identifies time indices of heart beats
+
+    The largest peaks in an ECG trace indicate the furthest
+    polarization of the heart during a beat. Identifying the
+    times of these beats can be useful in diagnosis of heart
+    diseases and abnormalities.
+
+    Args:
+        peak_indices (list): indices of ECG peaks previously identified
+        time (list): time data of the ECG strip
+
+    Returns:
+        list: times corresponding to ECG peaks
+    """
     logging.info("Identifying time of beats in ECG trace")
     peak_times = list()
     for i in peak_indices:
