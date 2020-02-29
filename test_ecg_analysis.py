@@ -57,7 +57,13 @@ def test_analyze_trace():
     t, v, hv = load_data(file)
     answer = analyze_trace(t, v, file)
     expected = {"duration": 27.775, "voltage_extremes": (-0.59, 1.375),
-                "num_beats": 32, "mean_hr_bpm": 69}
+                "num_beats": 32, "mean_hr_bpm": 69, "beats":
+                    [0.319, 1.192, 2.019, 2.911, 3.844, 4.758, 5.658,
+                     6.528, 7.436, 8.258, 9.214, 10.175, 11.047, 11.9,
+                     12.85, 13.692, 14.603, 15.517, 16.433, 17.289,
+                     18.181, 18.975, 19.886, 20.775, 21.675, 22.561,
+                     23.375, 24.272, 25.117, 25.936, 26.789, 27.65]
+                }
     assert answer == expected
 
 
@@ -87,11 +93,14 @@ def test_create_dict():
     from ecg_analysis import create_dict
     timespan = 4.5
     extremes = (-3.5, 1.3)
-    beats = 31
+    numbeats = 31
     mean_hr = 63
-    answer = create_dict(timespan, extremes, beats, mean_hr)
+    beat_times = [0.1, 0.3, 0.5]
+    answer = create_dict(timespan, extremes, numbeats,
+                         mean_hr, beat_times)
     expected = {"duration": 4.5, "voltage_extremes": (-3.5, 1.3),
-                "num_beats": 31, "mean_hr_bpm": 63}
+                "num_beats": 31, "mean_hr_bpm": 63,
+                "beats": [0.1, 0.3, 0.5]}
     assert answer == expected
 
 
@@ -101,7 +110,7 @@ def test_num_beats():
     from ecg_analysis import voltage_extremes
     file = "test_data/test_data10.csv"
     t, v, hv = load_data(file)
-    answer = num_beats(v, t)
+    answer, peaks = num_beats(v, t)
     expected = 44
     assert answer == expected
 
@@ -114,8 +123,8 @@ def test_mean_hr_bpm():
     from ecg_analysis import duration
     file = "test_data/test_data10.csv"
     t, v, hv = load_data(file)
-    beats = num_beats(v, t)
+    nbeats, peaks = num_beats(v, t)
     t_in_s = duration(t)
-    answer = mean_hr_bpm(beats, t_in_s)
+    answer = mean_hr_bpm(nbeats, t_in_s)
     expected = 95
     assert answer == expected
