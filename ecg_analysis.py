@@ -170,9 +170,11 @@ def num_beats(voltage, time):
 
     Args:
         voltage (list): voltage data of the ECG strip
+        time (list): time data of the ECG strip
 
     Returns:
         int: number of peaks/beats in the ECG strip
+        list: indices of ECG peaks identified
     """
     logging.info("Calculating number of beats in ECG trace")
     fs = 1/(time[1]-time[0])
@@ -180,7 +182,6 @@ def num_beats(voltage, time):
     unfiltered_ecg = voltage
     r_peaks = detectors.pan_tompkins_detector(unfiltered_ecg)
     num_peaks = len(r_peaks)
-    # time[r_peaks]
     print(num_peaks)
     return num_peaks, r_peaks
 
@@ -241,7 +242,7 @@ def create_dict(timespan, extremes, numbeats, mean_hr, beat_times):
         extremes (float tuple): (min, max) of lead voltages in file
         numbeats (int): number of detected beats in file
         mean_hr (int): average heart rate over file length
-        beat_times (list of ints): times when beat occurred
+        beat_times (list of floats): times when beat occurred
 
     Returns:
         dict: metrics dictionary with ECG statistics of the input file
