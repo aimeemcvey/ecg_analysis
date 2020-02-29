@@ -4,3 +4,4 @@ numpy
 matplotlib
 scipy
 sphinx
+py-ecg-detectors
