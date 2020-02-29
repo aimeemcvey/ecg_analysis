@@ -89,21 +89,6 @@ def test_voltage_extremes(v, expected):
     assert answer == expected
 
 
-def test_create_dict():
-    from ecg_analysis import create_dict
-    timespan = 4.5
-    extremes = (-3.5, 1.3)
-    numbeats = 31
-    mean_hr = 63
-    beat_times = [0.1, 0.3, 0.5]
-    answer = create_dict(timespan, extremes, numbeats,
-                         mean_hr, beat_times)
-    expected = {"duration": 4.5, "voltage_extremes": (-3.5, 1.3),
-                "num_beats": 31, "mean_hr_bpm": 63,
-                "beats": [0.1, 0.3, 0.5]}
-    assert answer == expected
-
-
 def test_num_beats():
     from ecg_analysis import num_beats
     from ecg_analysis import load_data
@@ -127,4 +112,39 @@ def test_mean_hr_bpm():
     t_in_s = duration(t)
     answer = mean_hr_bpm(nbeats, t_in_s)
     expected = 95
+    assert answer == expected
+
+
+def test_beats():
+    from ecg_analysis import beats
+    from ecg_analysis import load_data
+    from ecg_analysis import voltage_extremes
+    from ecg_analysis import num_beats
+    from ecg_analysis import duration
+    file = "test_data/test_data10.csv"
+    t, v, hv = load_data(file)
+    nbeats, peaks = num_beats(v, t)
+    answer = beats(peaks, t)
+    expected = [0.3, 1.003, 1.636, 2.233, 2.961, 3.625, 4.217, 5.011,
+                5.594, 6.256, 6.856, 7.494, 8.058, 8.764, 9.361,
+                10.011, 10.642, 11.275, 11.936, 12.494, 13.133, 13.683,
+                14.292, 14.936, 15.589, 16.219, 16.847, 17.431, 18.058,
+                18.708, 19.267, 19.867, 20.489, 21.175, 21.839, 22.458,
+                23.086, 23.733, 24.364, 24.969, 25.653, 26.228, 26.886,
+                27.597]
+    assert answer == expected
+
+
+def test_create_dict():
+    from ecg_analysis import create_dict
+    timespan = 4.5
+    extremes = (-3.5, 1.3)
+    numbeats = 31
+    mean_hr = 63
+    beat_times = [0.1, 0.3, 0.5]
+    answer = create_dict(timespan, extremes, numbeats,
+                         mean_hr, beat_times)
+    expected = {"duration": 4.5, "voltage_extremes": (-3.5, 1.3),
+                "num_beats": 31, "mean_hr_bpm": 63,
+                "beats": [0.1, 0.3, 0.5]}
     assert answer == expected
