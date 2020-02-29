@@ -1,5 +1,8 @@
 # ecg_analysis.py
 import logging
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.signal
 
 
 def load_data(f):
@@ -93,7 +96,7 @@ def analyze_trace(time, voltage, file):
     beats = num_beats(voltage, extremes[1])
     mean_hr = mean_hr_bpm(beats, timespan)
     # beat_times = def beats(time)
-    metrics = create_dict(timespan, extremes, beats, mean_hr)  # add others later
+    metrics = create_dict(timespan, extremes, beats, mean_hr)
     out_file = save_json(metrics, file)
     return metrics
     return out_file
@@ -113,7 +116,6 @@ def plot(time, voltage):
     Returns:
         pyplot: voltage-time plot of ECG strip
     """
-    import matplotlib.pyplot as plt
     logging.info("Plotting ECG trace")
     plt.plot(time, voltage)
     plt.show()
@@ -171,12 +173,7 @@ def num_beats(voltage, max):
     Returns:
         int: number of peaks/beats in the ECG strip
     """
-    import scipy.signal
-    import statistics
     logging.info("Calculating number of beats in ECG trace")
-    # meanval = statistics.mean(voltage)
-    # print(meanval)
-    # threshold = (max+meanval)/2
     threshold = 0.5*max
     peaks = scipy.signal.find_peaks(voltage, threshold)
     peak_indices = peaks[0]
