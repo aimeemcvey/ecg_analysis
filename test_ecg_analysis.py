@@ -52,14 +52,12 @@ def test_load_data_excess_voltage():
 
 def test_analyze_trace():
     from ecg_analysis import analyze_trace
-    time = ([0.1, 0.3, 0.5, 0.9, 1.5, 1.7, 1.9, 2.3, 2.6,
-             3.1, 3.6, 3.8, 4.0, 4.3])
-    voltage = ([-0.3, -0.9, -1.4, -1.7, -1.4, 0.1, 0.5, 0.7, 0.1,
-                1.3, 0.6, 1.8, 3.5, 2.0])
-    file = "test_data/test_data_madeup.csv"
-    answer = analyze_trace(time, voltage, file)
-    expected = {"duration": 4.2, "voltage_extremes": (-1.7, 3.5),
-                "num_beats": 1, "mean_hr_bpm": 14}
+    from ecg_analysis import load_data
+    file = "test_data/test_data2.csv"
+    t, v, hv = load_data(file)
+    answer = analyze_trace(t, v, file)
+    expected = {"duration": 27.775, "voltage_extremes": (-0.59, 1.375),
+                "num_beats": 32, "mean_hr_bpm": 69}
     assert answer == expected
 
 
@@ -101,25 +99,23 @@ def test_num_beats():
     from ecg_analysis import num_beats
     from ecg_analysis import load_data
     from ecg_analysis import voltage_extremes
-    file = "test_data/test_data1.csv"
+    file = "test_data/test_data10.csv"
     t, v, hv = load_data(file)
-    minv, maxv = voltage_extremes(v)
-    answer = num_beats(v, maxv)
-    expected = 35
+    answer = num_beats(v, t)
+    expected = 44
     assert answer == expected
 
 
-def test_num_beats():
+def test_mean_hr_bpm():
     from ecg_analysis import mean_hr_bpm
     from ecg_analysis import load_data
     from ecg_analysis import voltage_extremes
     from ecg_analysis import num_beats
     from ecg_analysis import duration
-    file = "test_data/test_data1.csv"
+    file = "test_data/test_data10.csv"
     t, v, hv = load_data(file)
-    minv, maxv = voltage_extremes(v)
-    beats = num_beats(v, maxv)
+    beats = num_beats(v, t)
     t_in_s = duration(t)
     answer = mean_hr_bpm(beats, t_in_s)
-    expected = 76
+    expected = 95
     assert answer == expected
