@@ -118,9 +118,7 @@ def test_mean_hr_bpm():
 def test_beats():
     from ecg_analysis import beats
     from ecg_analysis import load_data
-    from ecg_analysis import voltage_extremes
     from ecg_analysis import num_beats
-    from ecg_analysis import duration
     file = "test_data/test_data10.csv"
     t, v, hv = load_data(file)
     nbeats, peaks = num_beats(v, t)
