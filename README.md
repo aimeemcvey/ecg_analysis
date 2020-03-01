@@ -1,5 +1,7 @@
 # ECG Analysis Assignment [![Build Status](https://travis-ci.com/BME547-Spring2020/ecg-analysis-aimeemcvey.svg?token=uYZMqDdwHppZCbLZESzP&branch=master)](https://travis-ci.com/BME547-Spring2020/ecg-analysis-aimeemcvey)
-This project analyzes an ECG strip's voltage-time data for several key values (duration, voltage extremes, number and timing of beats, and average heart rate. These values are output as a JSON file for each set of ECG data.
+This project analyzes an ECG strip's voltage-time data for several key values: duration, voltage extremes, number and timing of beats, and average heart rate. These values are output as a JSON file for each set of ECG data.
+
+The ECG is the most important test for determining heart health, including heart rate, electrical conduction abnormalities, and detection of atherosclerosis. It can also lead to diagnoses of cardiac abnormalities including valvular heart disease, cardiomyopathy, pericarditis, and hypertension. The ECG itself is a plot of voltage versus time, where the wave is deflected a given distance based on the voltage potential difference between electrodes placed on the skin. Analysis of the time and voltage data give important parameters used to diagnose the above abnormalities and diseases.
 
 ## Overview
 The input ECG data comes from a CSV file containing two columns of data: time and voltage. If either value in a `time, voltage` pair is missing, contains a string, or is NaN, an `ERROR` is logged, and the data pair is skipped. If a voltage value is found outside the normal range of +/- 300 mV, a `WARNING` is logged for the file. Starting analysis of a new trace and each dictionary value logs an `INFO` entry. The program analyzes the ECG strip to create a `metrics` dictionary with the following keys:
@@ -9,6 +11,7 @@ The input ECG data comes from a CSV file containing two columns of data: time an
 * `num_beats` (int): number of detected beats in the strip
 * `mean_hr_bpm` (int): average heart rate over the length of the strip  
 * `beats` (list of floats): list of times when a beat occurred
+
 This dictionary is then output as a JSON file for the data file.
 
 ### Defining and Identifying a Beat
