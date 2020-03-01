@@ -184,7 +184,6 @@ def num_beats(voltage, time):
     unfiltered_ecg = voltage
     r_peaks = detectors.pan_tompkins_detector(unfiltered_ecg)
     num_peaks = len(r_peaks)
-    print(num_peaks)
     return num_peaks, r_peaks
 
 
@@ -249,6 +248,7 @@ def create_dict(timespan, extremes, numbeats, mean_hr, beat_times):
     Returns:
         dict: metrics dictionary with ECG statistics of the input file
     """
+    logging.info("Assigning dictionary entries")
     metrics = {"duration": timespan, "voltage_extremes": extremes,
                "num_beats": numbeats, "mean_hr_bpm": mean_hr,
                "beats": beat_times}
@@ -272,6 +272,7 @@ def save_json(hr_dict, file):
         JSON: ECG statistics for the individual file
     """
     import json
+    logging.info("Writing JSON file")
     filepath_split = file.split('/')
     filename_csv = filepath_split[1]
     filename_stem = filename_csv.split('.')
@@ -284,6 +285,7 @@ def save_json(hr_dict, file):
 
 
 if __name__ == "__main__":
-    file = "test_data/test_data2.csv"
+    file = "test_data/test_data1.csv"
+    # file = input('File: ')
     t, v, hv = load_data(file)
     analyze_trace(t, v, file)
