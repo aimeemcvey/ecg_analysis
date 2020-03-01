@@ -1,4 +1,4 @@
-# ECG Analysis Assignment
+# ECG Analysis Assignment [![Build Status](https://travis-ci.com/BME547-Spring2020/ecg-analysis-aimeemcvey.svg?token=uYZMqDdwHppZCbLZESzP&branch=master)](https://travis-ci.com/BME547-Spring2020/ecg-analysis-aimeemcvey)
 This project analyzes an ECG strip's voltage-time data for several key values (duration, voltage extremes, number and timing of beats, and average heart rate. These values are output as a JSON file for each set of ECG data.
 
 ## Overview
