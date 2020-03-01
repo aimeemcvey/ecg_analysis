@@ -25,6 +25,27 @@ For example, the file `test_data2.csv` is selected by inputting `file = 'test_da
 To run the program, input `python ecg_analysis.py` into the command line. 
 A JSON file will be created for each patient (`filename.json`, where filename = test_data2 following the above example file) with the analysis results in JSON format: `duration`, `voltage_extremes`, `num_beats`, `mean_hr_bpm`,  and `beats`.
 
-License
+## License
+MIT License
+
+Copyright (c) [2020] [Aimee McVey]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 More information on this assignment can be found at <https://github.com/dward2/BME547/tree/master/Assignments/ECG_Analysis>.
