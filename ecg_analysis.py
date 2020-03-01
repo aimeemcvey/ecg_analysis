@@ -17,6 +17,7 @@ def load_data(f):
     Returns:
         list: time data of the ECG strip
         list: voltage data of the ECG strip
+        list: voltages exceeding +/- 300 mV
     """
     import csv
     with open(f, newline='') as csvfile:
@@ -40,6 +41,7 @@ def organize_data(filereader, file):
     Returns:
         list: time data of the ECG strip
         list: voltage data of the ECG strip
+        list: voltages exceeding +/- 300 mV
     """
     import math
     logging.basicConfig(filename="ecg_info.log", filemode="w",
@@ -87,7 +89,7 @@ def analyze_trace(time, voltage, file):
         file (str): filename and path with stem to be used as JSON filename
 
     Returns:
-        JSON: ECG statistics for the individual file
+        dict: ECG statistics for the individual file
     """
     logging.info("Starting analysis of new ECG trace")
     plot(time, voltage)
@@ -100,7 +102,6 @@ def analyze_trace(time, voltage, file):
                           beat_times)
     save_json(metrics, file)
     return metrics
-    # return out_file
 
 
 def plot(time, voltage):
@@ -152,7 +153,8 @@ def voltage_extremes(voltage):
         voltage (list): voltage data of the ECG strip
 
     Returns:
-        float tuple: (min, max) of lead voltages in file
+        float: min of lead voltages in file
+        float: max of lead voltages in file
     """
     logging.info("Identifying voltage extremes of ECG trace")
     minv = min(voltage)
@@ -177,7 +179,7 @@ def num_beats(voltage, time):
         list: indices of ECG peaks identified
     """
     logging.info("Calculating number of beats in ECG trace")
-    fs = 1/(time[1]-time[0])
+    fs = 1 / (time[1] - time[0])
     detectors = Detectors(fs)
     unfiltered_ecg = voltage
     r_peaks = detectors.pan_tompkins_detector(unfiltered_ecg)
@@ -202,8 +204,8 @@ def mean_hr_bpm(numbeats, t_in_s):
         int: heart rate in beats per minute
     """
     logging.info("Calculating mean HR of ECG trace")
-    t_in_min = t_in_s/60
-    bpm = round(numbeats/t_in_min)
+    t_in_min = t_in_s / 60
+    bpm = round(numbeats / t_in_min)
     return bpm
 
 
@@ -247,12 +249,9 @@ def create_dict(timespan, extremes, numbeats, mean_hr, beat_times):
     Returns:
         dict: metrics dictionary with ECG statistics of the input file
     """
-    metrics = {}
-    metrics["duration"] = timespan
-    metrics["voltage_extremes"] = extremes
-    metrics["num_beats"] = numbeats
-    metrics["mean_hr_bpm"] = mean_hr
-    metrics["beats"] = beat_times
+    metrics = {"duration": timespan, "voltage_extremes": extremes,
+               "num_beats": numbeats, "mean_hr_bpm": mean_hr,
+               "beats": beat_times}
     print(metrics)
     return metrics
 
@@ -277,10 +276,10 @@ def save_json(hr_dict, file):
     filename_csv = filepath_split[1]
     filename_stem = filename_csv.split('.')
     filename = filename_stem[0]
-    filename = "{}.json" .format(filename)
+    filename = "{}.json".format(filename)
     out_file = open(filename, 'w')
     json.dump(hr_dict, out_file)
-    out_file.close
+    out_file.close()
     return out_file
 
 
