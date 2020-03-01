@@ -106,6 +106,8 @@ def test_num_beats():
     ("test_data/test_data17.csv", 19),
     ("test_data/test_data29.csv", 19),
     ("test_data/test_data32.csv", 19),
+    ("test_data/test_data25.csv", 32),
+    ("test_data/test_data26.csv", 55),
 ])
 def test_num_beats_ext(file, expected):
     from ecg_analysis import num_beats
@@ -113,7 +115,7 @@ def test_num_beats_ext(file, expected):
     from ecg_analysis import voltage_extremes
     t, v, hv = load_data(file)
     answer, peaks = num_beats(v, t)
-    assert 1.10 * expected > answer > 0.90 * expected
+    assert (1.10 * expected) > answer > (0.90 * expected)
 
 
 def test_mean_hr_bpm():
