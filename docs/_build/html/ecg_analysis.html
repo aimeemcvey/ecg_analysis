@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>ecg_analysis module &#8212; ecg-analysis-aimeemcvey 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="test_ecg_analysis module" href="test_ecg_analysis.html" />
+    <link rel="prev" title="Welcome to ecg-analysis-aimeemcvey’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-ecg_analysis">
+<span id="ecg-analysis-module"></span><h1>ecg_analysis module<a class="headerlink" href="#module-ecg_analysis" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="ecg_analysis.analyze_trace">
+<code class="sig-prename descclassname">ecg_analysis.</code><code class="sig-name descname">analyze_trace</code><span class="sig-paren">(</span><em class="sig-param">time</em>, <em class="sig-param">voltage</em>, <em class="sig-param">file</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg_analysis.analyze_trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyzes ECG strip data for key information output as JSON</p>
+<p>An ECG records the electrical signals in the heart and is
+commonly used to detect and monitor heart problems. The
+recorded data is in the voltage-time format. Peaks and troughs
+indicate voltage changes that in turn indicate heart beats.
+These QRS waves can be analyzed for key information that aids
+in diagnosis.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>time (list): time data of the ECG strip
+voltage (list): voltage data of the ECG strip
+file (str): filename and path with stem to be used as JSON filename</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: ECG statistics for the individual file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg_analysis.beats">
+<code class="sig-prename descclassname">ecg_analysis.</code><code class="sig-name descname">beats</code><span class="sig-paren">(</span><em class="sig-param">peak_indices</em>, <em class="sig-param">time</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg_analysis.beats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifies time indices of heart beats</p>
+<p>The largest peaks in an ECG trace indicate the furthest
+polarization of the heart during a beat. Identifying the
+times of these beats can be useful in diagnosis of heart
+diseases and abnormalities.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>peak_indices (list): indices of ECG peaks previously identified
+time (list): time data of the ECG strip</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: times corresponding to ECG peaks</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg_analysis.create_dict">
+<code class="sig-prename descclassname">ecg_analysis.</code><code class="sig-name descname">create_dict</code><span class="sig-paren">(</span><em class="sig-param">timespan</em>, <em class="sig-param">extremes</em>, <em class="sig-param">numbeats</em>, <em class="sig-param">mean_hr</em>, <em class="sig-param">beat_times</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg_analysis.create_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates metrics dictionary with key ECG information</p>
+<p>The metrics dictionary contains the the following info:
+timespan: float, voltage_extremes: float tuple, num_beats:
+int, mean_hr_bpm: float, beats: list of ints</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>timespan (float): time duration of ECG strip
+extremes (float tuple): (min, max) of lead voltages in file
+numbeats (int): number of detected beats in file
+mean_hr (int): average heart rate over file length
+beat_times (list of floats): times when beat occurred</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: metrics dictionary with ECG statistics of the input file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg_analysis.duration">
+<code class="sig-prename descclassname">ecg_analysis.</code><code class="sig-name descname">duration</code><span class="sig-paren">(</span><em class="sig-param">time</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg_analysis.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates time span of ECG strip data</p>
+<p>The time span of the provided data indicates for how long
+the ECG test was administered and provides a benchmark
+for the number of expected heart beats.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>time (list): time data of the ECG strip</p>
+</dd>
+<dt>Returns:</dt><dd><p>float: time duration of ECG strip</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg_analysis.load_data">
+<code class="sig-prename descclassname">ecg_analysis.</code><code class="sig-name descname">load_data</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg_analysis.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads input file data into time and voltage lists</p>
+<p>The raw CSV ECG data must be loaded and arranged into
+lists of time and voltage for further analysis.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>f (str): filename and path</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: time data of the ECG strip
+list: voltage data of the ECG strip
+list: voltages exceeding +/- 300 mV</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg_analysis.mean_hr_bpm">
+<code class="sig-prename descclassname">ecg_analysis.</code><code class="sig-name descname">mean_hr_bpm</code><span class="sig-paren">(</span><em class="sig-param">numbeats</em>, <em class="sig-param">t_in_s</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg_analysis.mean_hr_bpm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates heart rate from previously determined beats and timespan</p>
+<p>Average heart rate is the number of times a person’s heart beats
+per minute. Normal heart rate is generally defined as 60 to 100
+bpm. Higher or lower heart rates can indicate tachycardia or
+bradycardia, respectively, as well as further health conditions.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>numbeats (int): number of calculated heartbeats in ECG strip
+t_in_s (float): calculated time duration of ECG strip</p>
+</dd>
+<dt>Returns:</dt><dd><p>int: heart rate in beats per minute</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg_analysis.num_beats">
+<code class="sig-prename descclassname">ecg_analysis.</code><code class="sig-name descname">num_beats</code><span class="sig-paren">(</span><em class="sig-param">voltage</em>, <em class="sig-param">time</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg_analysis.num_beats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts number of heartbeats in ECG strip data</p>
+<p>The peaks of an ECG indicate a heart beat, with each
+peak indicative of a QRS wave. By counting these beats,
+the heart rate can be determined, which can further be
+used to diagnose deeper conditions.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>voltage (list): voltage data of the ECG strip
+time (list): time data of the ECG strip</p>
+</dd>
+<dt>Returns:</dt><dd><p>int: number of peaks/beats in the ECG strip
+list: indices of ECG peaks identified</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg_analysis.organize_data">
+<code class="sig-prename descclassname">ecg_analysis.</code><code class="sig-name descname">organize_data</code><span class="sig-paren">(</span><em class="sig-param">filereader</em>, <em class="sig-param">file</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg_analysis.organize_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses input file data into time and voltage lists</p>
+<p>The raw CSV ECG data must be read and bad values noted,
+including missing values, strings, NaNs, and voltages
+exceeding +/- 300 mV. A voltage this high or low likely
+indicates a problem with the recording of the ECG data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>filereader (_csv.reader): input data read in raw csv format
+file (str): filename and path</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: time data of the ECG strip
+list: voltage data of the ECG strip
+list: voltages exceeding +/- 300 mV</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg_analysis.plot">
+<code class="sig-prename descclassname">ecg_analysis.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">time</em>, <em class="sig-param">voltage</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg_analysis.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots ECG strip data of voltage vs. time</p>
+<p>A plot of the ECG data allows for easy visualization
+of QRS waves, expected max and min voltage values, and
+expected number of heart beats.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>time (list): time data of the ECG strip
+voltage (list): voltage data of the ECG strip</p>
+</dd>
+<dt>Returns:</dt><dd><p>pyplot: voltage-time plot of ECG strip</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg_analysis.save_json">
+<code class="sig-prename descclassname">ecg_analysis.</code><code class="sig-name descname">save_json</code><span class="sig-paren">(</span><em class="sig-param">hr_dict</em>, <em class="sig-param">file</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg_analysis.save_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves set of ECG data’s key stats in JSON format</p>
+<p>ECG data is saved under ‘test_data#.json’ format
+with the following info: timespan (float),
+voltage_extremes (float tuple), num_beats (int),
+mean_hr_bpm (int), beats (list of ints)</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>hr_dict (dict): patient information separated into keys-value pairs
+file (str): filename and path with stem to be used as JSON filename</p>
+</dd>
+<dt>Returns:</dt><dd><p>JSON: ECG statistics for the individual file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg_analysis.voltage_extremes">
+<code class="sig-prename descclassname">ecg_analysis.</code><code class="sig-name descname">voltage_extremes</code><span class="sig-paren">(</span><em class="sig-param">voltage</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg_analysis.voltage_extremes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pinpoints min and max of voltages in ECG strip data</p>
+<p>The min and max voltages can provide information on
+abnormal polarization of the heart or point out abnormal
+data, whether too high or too low. Normal ECG amplitude
+reaches about 2.5-3.0 mV maximum.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>voltage (list): voltage data of the ECG strip</p>
+</dd>
+<dt>Returns:</dt><dd><p>float: min of lead voltages in file
+float: max of lead voltages in file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ecg-analysis-aimeemcvey</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ecg_analysis module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_ecg_analysis.html">test_ecg_analysis module</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">ecg-analysis-aimeemcvey</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ecg_analysis module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test_ecg_analysis.html">test_ecg_analysis module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to ecg-analysis-aimeemcvey’s documentation!</a></li>
+      <li>Next: <a href="test_ecg_analysis.html" title="next chapter">test_ecg_analysis module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Aimee McVey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/ecg_analysis.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

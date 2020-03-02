@@ -1,4 +1,3 @@
 myvenv/
-ecg_errors.log
 *.json
 __pycache__/

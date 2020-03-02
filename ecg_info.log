@@ -5,3 +5,5 @@ INFO:root:Identifying voltage extremes of ECG trace
 INFO:root:Calculating number of beats in ECG trace
 INFO:root:Calculating mean HR of ECG trace
 INFO:root:Identifying time of beats in ECG trace
+INFO:root:Assigning dictionary entries
+INFO:root:Writing JSON file
