@@ -118,18 +118,21 @@ def test_num_beats_ext(file, expected):
     assert (1.10 * expected) > answer > (0.90 * expected)
 
 
-def test_mean_hr_bpm():
+@pytest.mark.parametrize("file, expected", [
+    ("test_data/test_data10.csv", 95),
+    ("test_data/test_data17.csv", 78),
+    ("test_data/test_data28.csv", 73),
+])
+def test_mean_hr_bpm(file, expected):
     from ecg_analysis import mean_hr_bpm
     from ecg_analysis import load_data
     from ecg_analysis import voltage_extremes
     from ecg_analysis import num_beats
     from ecg_analysis import duration
-    file = "test_data/test_data10.csv"
     t, v, hv = load_data(file)
     nbeats, peaks = num_beats(v, t)
     t_in_s = duration(t)
     answer = mean_hr_bpm(nbeats, t_in_s)
-    expected = 95
     assert answer == expected
 
 
