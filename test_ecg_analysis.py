@@ -67,6 +67,23 @@ def test_analyze_trace():
     assert answer == expected
 
 
+def test_analyze_trace_2():
+    from ecg_analysis import analyze_trace
+    from ecg_analysis import load_data
+    file = "test_data/test_data8.csv"
+    t, v, hv = load_data(file)
+    answer = analyze_trace(t, v, file)
+    expected = {"duration": 27.775, "voltage_extremes": (-3.105, 1.975),
+                "num_beats": 33, "mean_hr_bpm": 71, "beats":
+                    [0.331, 0.822, 1.578, 2.531, 3.436, 4.283, 5.142,
+                     5.881, 6.794, 7.647, 8.514, 9.383, 10.233, 11.119,
+                     11.942, 12.753, 13.586, 14.447, 15.328, 16.197,
+                     17.058, 17.886, 18.731, 19.55, 20.397, 21.2, 22.161,
+                     23.017, 23.819, 24.567, 25.483, 26.372, 27.258]
+                }
+    assert answer == expected
+
+
 @pytest.mark.parametrize("t, expected", [
     ([0.3, 0.8, 1.1, 1.5, 1.8, 2.2, 3.4], 3.1),
     ([0, 0.2, 0.7, 5.6, 9.3, 11.6], 11.6),
