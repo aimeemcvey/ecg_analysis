@@ -22,7 +22,7 @@ You can read more at <https://en.wikipedia.org/wiki/Pan%E2%80%93Tompkins_algorit
 Heart rate is calculated as beats per minute. The duration of the ECG strip is converted to minutes via `min = sec/60`. The number of beats detected in the ECG strip is then divided by the duration in minutes (`bpm = numbeats/t_in_min`) and rounded to the nearest integer.
 
 ## Run Instructions
-To analyze a certain ECG strip, open `ecg_analysis.py` and enter the path and filename of the desired file on the line ```file ='' ```.
+To analyze a certain ECG strip, open `ecg_analysis.py` and enter the path and filename of the desired file on the line ```file ='' ```. For this program, the test data file must be located in a folder.
 For example, the file `test_data2.csv` is selected by inputting `file = 'test_data/test_data2.csv'`, where test_data is the folder that contains the file ```test_data2.csv```.
 
 To run the program, input `python ecg_analysis.py` into the command line. 
