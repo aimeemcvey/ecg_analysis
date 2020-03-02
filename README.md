@@ -26,7 +26,7 @@ To analyze a certain ECG strip, open `ecg_analysis.py` and enter the path and fi
 For example, the file `test_data2.csv` is selected by inputting `file = 'test_data/test_data2.csv'`, where test_data is the folder that contains the file ```test_data2.csv```.
 
 To run the program, input `python ecg_analysis.py` into the command line. 
-A JSON file will be created for each patient (`filename.json`, where filename = test_data2 following the above example file) with the analysis results in JSON format: `duration`, `voltage_extremes`, `num_beats`, `mean_hr_bpm`,  and `beats`.
+A JSON file will be created for the ECG strip (`filename.json`, where filename = test_data2 following the above example file) with the analysis results in JSON format: `duration`, `voltage_extremes`, `num_beats`, `mean_hr_bpm`,  and `beats`.
 
 ## License
 MIT License
