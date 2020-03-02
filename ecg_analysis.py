@@ -235,8 +235,8 @@ def create_dict(timespan, extremes, numbeats, mean_hr, beat_times):
     """Creates metrics dictionary with key ECG information
 
     The metrics dictionary contains the the following info:
-    timespan: float, voltage_extremes: float tuple, num_beats:
-    int, mean_hr_bpm: float, beats: list of ints
+    duration: float, voltage_extremes: float tuple, num_beats:
+    int, mean_hr_bpm: int, beats: list of floats
 
     Args:
         timespan (float): time duration of ECG strip
@@ -252,7 +252,6 @@ def create_dict(timespan, extremes, numbeats, mean_hr, beat_times):
     metrics = {"duration": timespan, "voltage_extremes": extremes,
                "num_beats": numbeats, "mean_hr_bpm": mean_hr,
                "beats": beat_times}
-    print(metrics)
     return metrics
 
 
@@ -260,9 +259,9 @@ def save_json(hr_dict, file):
     """Saves set of ECG data's key stats in JSON format
 
     ECG data is saved under 'test_data#.json' format
-    with the following info: timespan (float),
+    with the following info: duration (float),
     voltage_extremes (float tuple), num_beats (int),
-    mean_hr_bpm (int), beats (list of ints)
+    mean_hr_bpm (int), beats (list of floats)
 
     Args:
         hr_dict (dict): patient information separated into keys-value pairs
@@ -285,7 +284,7 @@ def save_json(hr_dict, file):
 
 
 if __name__ == "__main__":
-    file = "test_data/test_data1.csv"
+    file = "test_data/test_data8.csv"
     # file = input('File: ')
     t, v, hv = load_data(file)
     analyze_trace(t, v, file)
