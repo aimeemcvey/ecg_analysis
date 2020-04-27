@@ -1,4 +1,4 @@
-# ECG Analysis Assignment [![Build Status](https://travis-ci.com/BME547-Spring2020/ecg-analysis-aimeemcvey.svg?token=uYZMqDdwHppZCbLZESzP&branch=master)](https://travis-ci.com/BME547-Spring2020/ecg-analysis-aimeemcvey)
+# ECG Analysis [![Build Status](https://travis-ci.com/BME547-Spring2020/ecg-analysis-aimeemcvey.svg?token=uYZMqDdwHppZCbLZESzP&branch=master)](https://travis-ci.com/BME547-Spring2020/ecg-analysis-aimeemcvey)
 This project analyzes an ECG strip's voltage-time data for several key values: duration, voltage extremes, number and timing of beats, and average heart rate. These values are output as a JSON file for each set of ECG data.
 
 The ECG is the most important test for determining heart health, including heart rate, electrical conduction abnormalities, and detection of atherosclerosis. It can also lead to diagnoses of cardiac abnormalities including valvular heart disease, cardiomyopathy, pericarditis, and hypertension. The ECG itself is a plot of voltage versus time, where the wave is deflected a given distance based on the voltage potential difference between electrodes placed on the skin. Analysis of the time and voltage data give important parameters used to diagnose the above abnormalities and diseases.
@@ -27,28 +27,5 @@ For example, the file `test_data2.csv` is selected by inputting `file = 'test_da
 
 To run the program, input `python ecg_analysis.py` into the command line. 
 A JSON file will be created for the ECG strip (`filename.json`, where filename = test_data2 following the above example file) with the analysis results in JSON format: `duration`, `voltage_extremes`, `num_beats`, `mean_hr_bpm`,  and `beats`.
-
-## License
-MIT License
-
-Copyright (c) [2020] [Aimee McVey]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
 More information on this assignment can be found at <https://github.com/dward2/BME547/tree/master/Assignments/ECG_Analysis>.
